@@ -1,8 +1,1 @@
 Generic single-database configuration.
-
-# Generate a revision based on SQLAlchemy model
-1. Add to the env.py file an import with this format `from database.your_model import YourModel # noqa`
-2. Execute this in the terminal `alembic revision --autogenerate -m "Your message"`
-
-# Run migrations
-1. Execute `alembic upgrade head`

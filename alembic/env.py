@@ -1,12 +1,15 @@
 from logging.config import fileConfig
 
+from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from alembic import context
+from src.users.models import User  # noqa
+from src.commons.db_configuration import Base
+from src.groups.models import Group, UserGroup  # noqa
+from src.shifts.models import Shift # noqa
+from src.swaps.models import ShiftSwap # noqa
 
-from database.configuration import Base
-from database.group import Group # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
