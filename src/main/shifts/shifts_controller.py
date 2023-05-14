@@ -1,16 +1,14 @@
 from datetime import datetime
 
 from fastapi import APIRouter, Depends
-from sqlalchemy import and_
 from sqlalchemy.orm import Session
 
-from src.auth.auth_controller import get_current_user
-from src.commons.db_utils import get_db
-from src.groups.models import Group, UserGroup, UserGroupRole
-from src.groups.schemes import CreateGroup, JoinUserToGroup
-from src.shifts.models import Shift
-from src.shifts.schemes import CreateShift
-from src.users.models import User
+from src.main.auth.auth_controller import get_current_user
+from src.main.commons.db_configuration import get_db
+from src.main.groups.models import Group, UserGroupRole
+from src.main.shifts.models import Shift
+from src.main.shifts.schemes import CreateShift
+from src.main.users.models import User
 
 router = APIRouter(
     prefix='/shifts',
@@ -26,7 +24,7 @@ async def get_shifts(group_id: str, db: Session = Depends(get_db), user: User = 
 @router.post("/")
 async def create_shift(request: CreateShift, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     if db.query(Group).filter(Group.id == request.group_id).first() is None:
-        return "Tu eres tonto"
+        return "No group"
 
     shift: Shift = Shift(
         group_id=request.group_id,

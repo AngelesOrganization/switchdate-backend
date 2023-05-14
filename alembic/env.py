@@ -4,11 +4,11 @@ from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from src.users.models import User  # noqa
-from src.commons.db_configuration import Base
-from src.groups.models import Group, UserGroup  # noqa
-from src.shifts.models import Shift # noqa
-from src.swaps.models import ShiftSwap # noqa
+from src.main.users import User  # noqa
+from src.main.commons.db_configuration import Base
+from src.main.groups.models import Group, UserGroup  # noqa
+from src.main.shifts.models import Shift # noqa
+from src.main.swaps.models import ShiftSwap # noqa
 
 
 # this is the Alembic Config object, which provides

@@ -7,7 +7,7 @@ from sqlalchemy import TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from src.commons.db_configuration import Base
+from src.main.commons.db_configuration import Base
 
 
 class UserGroupRole(enum.Enum):

@@ -7,10 +7,10 @@ from sqlalchemy.orm import Session
 from starlette import status
 from starlette.exceptions import HTTPException
 
-from src.auth.logic import decode_token, authenticate_user, create_access_token
-from src.users.models import User
-from src.auth.schemas import Token, DecodedToken
-from src.commons.db_utils import get_db
+from src.main.auth.logic import decode_token, authenticate_user, create_access_token
+from src.main.auth.schemas import Token, DecodedToken
+from src.main.commons.db_configuration import get_db
+from src.main.users.models import User
 
 router = APIRouter(
     prefix='/auth',

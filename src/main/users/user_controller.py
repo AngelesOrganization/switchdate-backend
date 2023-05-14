@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from src.auth.logic import encrypt_password
-from src.users.models import User
-from src.commons.db_utils import get_db
-from src.users.schemas import CreateUserRequest
+from src.main.auth.logic import encrypt_password
+from src.main.users.models import User
+from src.main.commons.db_configuration import get_db
+from src.main.users.schemas import CreateUserRequest
 
 router = APIRouter(
     prefix='/users',
@@ -28,3 +28,6 @@ async def create_user(
 
     db.add(create_user_model)
     db.commit()
+    db.refresh(create_user_model)
+
+    return create_user_model

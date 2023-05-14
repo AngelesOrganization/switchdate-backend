@@ -5,8 +5,8 @@ from sqlalchemy import Column, String, Boolean, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from src.commons.db_configuration import Base
-from src.groups.models import UserGroup
+from src.main.commons.db_configuration import Base
+from src.main.groups.models import UserGroup
 
 
 class User(Base):

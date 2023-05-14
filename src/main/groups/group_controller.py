@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
 
-from src.auth.auth_controller import get_current_user
-from src.commons.db_utils import get_db
-from src.groups.models import Group, UserGroup, UserGroupRole
-from src.groups.schemes import CreateGroup, JoinUserToGroup
-from src.users.models import User
+from src.main.auth.auth_controller import get_current_user
+from src.main.commons.db_configuration import get_db
+from src.main.groups.models import Group, UserGroup, UserGroupRole
+from src.main.groups.schemes import CreateGroup, JoinUserToGroup
+from src.main.users.models import User
 
 router = APIRouter(
     prefix='/groups',
@@ -57,12 +57,12 @@ async def join_user_to_group(request: JoinUserToGroup, db: Session = Depends(get
     ).first()
 
     if user_group is None:
-        return "Tu lo que eres es un hijo de puta"
+        return "No user_group"
 
     candidate_user: User | None = db.query(User).filter(User.id == request.candidate_user_id).first()
 
     if user is None:
-        return "Lo siento amigo ese pana no existe"
+        return "no user"
 
     user_group: UserGroup = UserGroup(
         user_id=candidate_user.id,

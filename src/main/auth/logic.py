@@ -4,8 +4,8 @@ from jose import jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from src.users.models import User
-from src.auth.schemas import DecodedToken
+from src.main.users.models import User
+from src.main.auth.schemas import DecodedToken
 
 SECRET_KEY = 'ASDASD'
 ALGORITHM = 'HS256'

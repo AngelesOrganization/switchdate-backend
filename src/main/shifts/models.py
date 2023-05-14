@@ -4,7 +4,7 @@ from datetime import datetime
 from sqlalchemy import Column, ForeignKey, DateTime, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
 
-from src.commons.db_configuration import Base
+from src.main.commons.db_configuration import Base
 
 
 class Shift(Base):
