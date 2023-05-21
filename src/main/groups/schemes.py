@@ -7,5 +7,5 @@ class CreateGroup(BaseModel):
 
 
 class JoinUserToGroup(BaseModel):
-    candidate_user_id: str
+    candidate_username: str
     group_id: str

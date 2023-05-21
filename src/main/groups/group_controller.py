@@ -50,19 +50,20 @@ async def delete_group(group_id: str, db: Session = Depends(get_db), user: User 
 @router.post("/join")
 async def join_user_to_group(request: JoinUserToGroup, db: Session = Depends(get_db),
                              user: User = Depends(get_current_user)):
+
+    candidate_user: User | None = db.query(User).filter(User.username == request.candidate_username).first()
+
+    if candidate_user is None:
+        return "User does not exist"
+
     user_group: UserGroup | None = db.query(UserGroup).filter(
         UserGroup.user_id == user.id,
-        UserGroup.role == UserGroupRole.administrador,
-        UserGroup.group_id == request.group_id
+        UserGroup.group_id == request.group_id,
+        UserGroup.role == UserGroupRole.administrador
     ).first()
 
     if user_group is None:
-        return "No user_group"
-
-    candidate_user: User | None = db.query(User).filter(User.id == request.candidate_user_id).first()
-
-    if user is None:
-        return "no user"
+        return "No admin"
 
     user_group: UserGroup = UserGroup(
         user_id=candidate_user.id,

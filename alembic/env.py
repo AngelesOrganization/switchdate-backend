@@ -4,8 +4,8 @@ from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from src.main.users import User  # noqa
-from src.main.commons.db_configuration import Base
+from src.main.commons.db_configuration import Base # noqa
+from src.main.users.models import User # noqa
 from src.main.groups.models import Group, UserGroup  # noqa
 from src.main.shifts.models import Shift # noqa
 from src.main.swaps.models import ShiftSwap # noqa

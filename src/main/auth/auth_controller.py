@@ -37,7 +37,7 @@ async def login_for_access_token(
         username=form_data.username,
         user_id=str(user.id),
         role=user.role,
-        expires_delta=timedelta(minutes=20)
+        expires_delta=timedelta(minutes=200)
     )
 
     return {

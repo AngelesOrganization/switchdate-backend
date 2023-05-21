@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+from src.main.auth.auth_controller import get_current_user
 from src.main.auth.logic import encrypt_password
+from src.main.groups.models import UserGroup, Group
 from src.main.users.models import User
 from src.main.commons.db_configuration import get_db
 from src.main.users.schemas import CreateUserRequest
@@ -31,3 +33,14 @@ async def create_user(
     db.refresh(create_user_model)
 
     return create_user_model
+
+
+@router.get("/{group_id}")
+async def get_users_by_group(group_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    users: list[User] = db.query(User).\
+        join(UserGroup, User.id == UserGroup.user_id).\
+        join(Group, Group.id == UserGroup.group_id).\
+        filter(Group.id == group_id).\
+        all()
+
+    return users
