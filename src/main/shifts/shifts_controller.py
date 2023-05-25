@@ -57,6 +57,25 @@ async def delete_group(shift_id: str, db: Session = Depends(get_db), user: User 
     db.delete(shift)
     db.commit()
 
+
+@router.get("/{user_id}")
+def get_shifts(month: int, year: int, user_id: str, user: User = Depends(get_current_user),
+               db: Session = Depends(get_db)):
+    candidate_user = db.query(User).filter(User.id == user_id).first()
+
+    if candidate_user is None or user is None:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    # Verificar si los usuarios están en el mismo grupo
+    common_groups = set(candidate_user.groups) & set(user.groups)
+    if not common_groups:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a los turnos de este usuario")
+
+    return db.query(Shift).filter(
+        Shift.user_id == candidate_user.id,
+        extract('month', Shift.start_time) == month,
+        extract('year', Shift.start_time) == year).all()
+
 #
 # @router.post("/join")
 # async def join_user_to_group(join_user_to_group_scheme: JoinUserToGroup, db: Session = Depends(get_db),
