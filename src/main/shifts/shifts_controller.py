@@ -76,28 +76,3 @@ def get_shifts(month: int, year: int, user_id: str, user: User = Depends(get_cur
         extract('month', Shift.start_time) == month,
         extract('year', Shift.start_time) == year).all()
 
-#
-# @router.post("/join")
-# async def join_user_to_group(join_user_to_group_scheme: JoinUserToGroup, db: Session = Depends(get_db),
-#                              user: User = Depends(get_current_user)):
-#     user_group: UserGroup | None = db.query(UserGroup).filter(
-#         UserGroup.user_id == user.id,
-#         UserGroup.role == UserGroupRole.administrador,
-#         UserGroup.group_id == join_user_to_group_scheme.group_id
-#     ).first()
-#
-#     if user_group is None:
-#         return "Tu lo que eres es un hijo de puta"
-#
-#     candidate_user: User | None = db.query(User).filter(User.id == join_user_to_group_scheme.candidate_user_id).first()
-#
-#     if user is None:
-#         return "Lo siento amigo ese pana no existe"
-#
-#     user_group: UserGroup = UserGroup(
-#         user_id=candidate_user.id,
-#         group_id=user_group.group_id,
-#     )
-#
-#     db.add(user_group)
-#     db.commit()

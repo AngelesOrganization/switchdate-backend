@@ -14,7 +14,7 @@ router = APIRouter(
 )
 
 
-@router.post("/")
+@router.post("")
 async def create_user(
         create_user_request: CreateUserRequest,
         db: Session = Depends(get_db)
