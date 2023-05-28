@@ -49,7 +49,7 @@ async def create_shift(request: CreateShift, db: Session = Depends(get_db), user
 
 
 @router.delete("/{shift_id}")
-async def delete_group(shift_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+async def delete_shift(shift_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     shift: Shift | None = db.query(Shift).filter(Shift.id == shift_id, Shift.user_id == user.id).first()
     if shift is None:
         return
