@@ -82,7 +82,7 @@ def test_create_shift(client, db_session, user_token: str, test_user, postgres_c
     assert shift.end_time.isoformat() == shift_data["end_time"]
 
 
-def test_get_shifts(client, db_session, user_token: str, test_user, postgres_container):
+def test_get_shifts_for_current_user(client, db_session, user_token: str, test_user, postgres_container):
     # Crear los datos para un turno
     current_month = datetime.now().month
     current_year = datetime.now().year

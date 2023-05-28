@@ -4,7 +4,6 @@ from typing import List
 from pydantic import BaseModel
 from uuid import UUID
 
-
 from src.main.swaps.models import ShiftSwapStatus
 
 
@@ -59,4 +58,4 @@ class ShiftSwap(BaseModel):
 
 
 class ShiftSwapList(BaseModel):
-    swaps: List[ShiftSwap]
+    swaps: List[ShiftSwap | None] | None
