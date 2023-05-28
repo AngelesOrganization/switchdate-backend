@@ -9,9 +9,11 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from src.main.auth.logic import encrypt_password
 from src.main.commons.db_configuration import Base
 from src.main.commons.db_configuration import get_db
 from src.main.commons.main import api_router
+from src.main.users.models import User
 from src.test.config import settings
 
 
@@ -65,6 +67,37 @@ def client(
     app.dependency_overrides[get_db] = _get_test_db
     with TestClient(app) as client:
         yield client
+
+
+# Convierte testUser en una fixture
+@pytest.fixture(scope="function")
+def test_user(db_session: SessionTesting) -> User:
+    user = User(
+        username="testuser",
+        email="test@test.com",
+        first_name="Test",
+        last_name="User",
+        hashed_password=encrypt_password("testpassword"),
+        role="testrole"
+    )
+    db_session.add(user)
+    db_session.commit()
+    db_session.refresh(user)
+    return user
+
+
+@pytest.fixture(scope="function")
+def user_token(client: TestClient, db_session: SessionTesting, test_user) -> str:
+    # Crear un usuario de prueba y agregarlo a la base de datos
+    db_session.add(test_user)
+    db_session.commit()
+    db_session.refresh(test_user)
+
+    auth_response = client.post("/auth/token", data={"username": "testuser", "password": "testpassword"})
+    assert auth_response.status_code == 200, auth_response.text
+    auth_data = auth_response.json()
+    assert "access_token" in auth_data
+    return auth_data["access_token"]
 
 
 class PostgresImage:
