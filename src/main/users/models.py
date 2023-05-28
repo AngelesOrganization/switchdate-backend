@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 
 from src.main.commons.db_configuration import Base
 from src.main.groups.models import UserGroup
+from src.main.swaps.models import ShiftSwap
 
 
 class User(Base):
@@ -24,3 +25,5 @@ class User(Base):
     updated_at = Column(TIMESTAMP, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     groups = relationship("Group", secondary=UserGroup.__tablename__, back_populates="users")
+    requested_shifts = relationship("ShiftSwap", foreign_keys=ShiftSwap.requester_id, back_populates="requester")
+    requester_shifts = relationship("ShiftSwap", foreign_keys=ShiftSwap.requested_id, back_populates="requested")
