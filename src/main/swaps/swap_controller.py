@@ -54,8 +54,3 @@ async def create_swap(request: CreateSwap, db: Session = Depends(get_db), user: 
     db.refresh(shift_swap)
 
     return shift_swap
-
-
-@router.get("/{swap_id}")
-async def get_swap(shift_swaps_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return user.shift_swap

@@ -45,7 +45,7 @@ async def create_shift(request: CreateShift, db: Session = Depends(get_db), user
     db.commit()
     db.refresh(shift)
 
-    return request
+    return shift
 
 
 @router.delete("/{shift_id}")
