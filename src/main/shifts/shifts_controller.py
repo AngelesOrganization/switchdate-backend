@@ -61,6 +61,13 @@ async def delete_shift(shift_id: str, db: Session = Depends(get_db), user: User 
 @router.get("/{user_id}")
 def get_shifts(month: int, year: int, user_id: str, user: User = Depends(get_current_user),
                db: Session = Depends(get_db)):
+
+    if user_id == user.id:
+        return db.query(Shift).filter(
+            Shift.user_id == user.id,
+            extract('month', Shift.start_time) == month,
+            extract('year', Shift.start_time) == year).all()
+
     candidate_user = db.query(User).filter(User.id == user_id).first()
 
     if candidate_user is None or user is None:
