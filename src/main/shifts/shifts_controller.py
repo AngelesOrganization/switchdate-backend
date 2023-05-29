@@ -62,7 +62,7 @@ async def delete_shift(shift_id: str, db: Session = Depends(get_db), user: User 
 def get_shifts(month: int, year: int, user_id: str, user: User = Depends(get_current_user),
                db: Session = Depends(get_db)):
 
-    if user_id == user.id:
+    if user_id == str(user.id):
         return db.query(Shift).filter(
             Shift.user_id == user.id,
             extract('month', Shift.start_time) == month,
