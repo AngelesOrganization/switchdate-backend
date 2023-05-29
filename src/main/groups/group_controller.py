@@ -14,12 +14,12 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("")
 async def get_groups(user: User = Depends(get_current_user)):
     return user.groups
 
 
-@router.post("/")
+@router.post("")
 async def create_group(request: CreateGroup, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     group: Group = Group(
         name=request.name,
