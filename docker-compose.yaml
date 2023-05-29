@@ -2,8 +2,8 @@ version: '3.3'
 services:
     main:
         restart: unless-stopped
-        # image: ghcr.io/angelesorganization/switchdate-backend:main
-        image: fastapi-local:latest
+        image: ghcr.io/angelesorganization/switchdate-backend:main
+        # image: fastapi-local:latest
         ports:
             - 8002:8000
         environment:
