@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from src.main.auth.logic import encrypt_password
 from src.main.commons.db_configuration import Base
 from src.main.commons.db_configuration import get_db
-from src.main.commons.main import api_router
+from src.main.main import api_router
 from src.main.users.models import User
 from src.test.config import settings
 

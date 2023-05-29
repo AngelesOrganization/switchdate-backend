@@ -22,6 +22,8 @@ app.include_router(api_router)
 origins = [
     "http://localhost:3000",  # Permitir solicitudes desde el dominio front-end
     "http://127.0.0.1:3000",  # Permitir solicitudes desde el dominio front-end
+    "https://switchdate.duckdns.org",
+    "http://switchdate.duckdns.org"
 ]
 
 app.add_middleware(
